@@ -3,9 +3,9 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { SET_KEYBOARD_MODE, KEYBOARD_MODE_PREVIEW } from '../actions/const';
+import { SET_KEYBOARD_MODE, KEYBOARD_MODE_MONITOR_OUT } from '../actions/const';
 
-const initialState = { mode: KEYBOARD_MODE_PREVIEW };
+const initialState = { mode: KEYBOARD_MODE_MONITOR_OUT };
 
 function reducer(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */

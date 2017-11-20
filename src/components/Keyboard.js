@@ -2,7 +2,7 @@ import React from 'react';
 import cssmodules from 'react-css-modules';
 import styles from './keyboard.cssmodule.css';
 import PianoKeyboard from 'piano-keyboard';
-import { KEYBOARD_MODE_PREVIEW, NOTE_STATUS_ON, NOTE_STATUS_OFF } from '../actions/const';
+import { KEYBOARD_MODE_MONITOR_OUT, NOTE_STATUS_ON, NOTE_STATUS_OFF } from '../actions/const';
 
 class Keyboard extends React.Component {
   componentDidMount() {
@@ -17,8 +17,8 @@ class Keyboard extends React.Component {
 
   render() {
     
-    // When KEYBOARD_MODE_PREVIEW, the keyboard will show each "on" note from the output
-    if (this.props.mode === KEYBOARD_MODE_PREVIEW) {
+    // When KEYBOARD_MODE_MONITOR_OUT, the keyboard will show each "on" note from the output
+    if (this.props.mode === KEYBOARD_MODE_MONITOR_OUT) {
       const notes = this.props.notes.out;
       Object.keys(notes).forEach((note) => {
         if (notes[note].status == NOTE_STATUS_OFF) {
