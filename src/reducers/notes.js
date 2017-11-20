@@ -5,7 +5,7 @@
  */
 import { ADD_NOTE } from '../actions/const';
 
-const initialState = {};
+const initialState = { in: {}, out: {} };
 
 function reducer(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
@@ -14,7 +14,8 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     
     case ADD_NOTE: {
-      nextState[action.note.noteNumber] = action.note;    
+      nextState.in[action.note.noteNumber] = action.note;
+      nextState.out[action.note.noteNumber] = action.note;   
       return nextState;
     }
     

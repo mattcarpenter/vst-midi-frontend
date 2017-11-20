@@ -9,8 +9,8 @@ class AppComponent extends React.Component {
 
   render() {
     let notes = [];
-    Object.keys(this.props.notes).forEach((noteNumber) => {
-        let note = this.props.notes[noteNumber];
+    Object.keys(this.props.notes.in).forEach((noteNumber) => {
+        let note = this.props.notes.in[noteNumber];
         if (note.status == 9) {
             notes.push(Note.fromMidi(noteNumber));
         }

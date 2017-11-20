@@ -17,9 +17,9 @@ class Keyboard extends React.Component {
 
   render() {
     
+    // When KEYBOARD_MODE_PREVIEW, the keyboard will show each "on" note from the output
     if (this.props.mode === KEYBOARD_MODE_PREVIEW) {
-      // Prepare keyboard for rendering of the midi input preview
-      const notes = this.props.notes;
+      const notes = this.props.notes.out;
       Object.keys(notes).forEach((note) => {
         if (notes[note].status == NOTE_STATUS_OFF) {
           this.pianoKeyboard.noteOff(notes[note].noteName);
