@@ -5,12 +5,14 @@ import { Provider } from 'react-redux';
 import { addNote } from './actions';
 import App from './containers/App';
 import configureStore from './stores';
+import { Note } from 'tonal';
 
 const store = configureStore();
 
 window.sendNote = function (noteNumber, status, velocity) {
   store.dispatch(addNote({
     noteNumber: noteNumber,
+    noteName: Note.fromMidi(noteNumber),
     status: status,
     velocity: velocity
   }));

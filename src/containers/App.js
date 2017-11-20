@@ -10,13 +10,16 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addNote } from '../actions/';
+import {
+  addNote,
+  setKeyboardMode
+} from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, notes} = this.props;
-    return <Main actions={actions} notes={notes}/>;
+    const {actions, notes, keyboard} = this.props;
+    return <Main actions={actions} notes={notes} keyboard={keyboard}/>;
   }
 }
 /* Populated by react-webpack-redux:reducer
@@ -25,18 +28,28 @@ class App extends Component {
  *       adjust it here.
  */
 App.propTypes = {
-  actions: PropTypes.shape({ addNote: PropTypes.func.isRequired }),
-  notes: PropTypes.shape({})
+  actions: PropTypes.shape({
+    addNote: PropTypes.func.isRequired,
+    setKeyboardMode: PropTypes.func.isRequired
+  }),
+  notes: PropTypes.shape({}),
+  keyboard: PropTypes.shape({})
 };
 function mapStateToProps(state) {
   // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
-  const props = { notes: state.notes };
+  const props = {
+    notes: state.notes,
+    keyboard: state.keyboard
+  };
   return props;
 }
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
-  const actions = { addNote };
+  const actions = {
+    addNote,
+    setKeyboardMode
+  };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }
