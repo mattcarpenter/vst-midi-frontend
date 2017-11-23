@@ -1,7 +1,8 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import styles from './keyboard.cssmodule.css';
-import PianoKeyboard from 'piano-keyboard';
+//import PianoKeyboard from 'piano-keyboard';
+import PianoKeyboard from '../lib/keyboard';
 import { KEYBOARD_MODE_MONITOR_OUT, NOTE_STATUS_ON, NOTE_STATUS_OFF } from '../actions/const';
 
 class Keyboard extends React.Component {
