@@ -200,6 +200,9 @@ class WebpackBaseConfig {
         publicPath: './assets/'
       },
       plugins: [],
+      node: {
+        'fs': 'empty'
+      },
       resolve: {
         alias: {
           actions: `${this.srcPathAbsolute}/actions/`,

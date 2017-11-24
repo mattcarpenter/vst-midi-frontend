@@ -7,7 +7,7 @@ class MockHost extends React.Component {
   render() {
     return (
       <div className="mockhost-component" styleName="mockhost-component">
-        Please edit src/components/MockHost.js to update this component!
+       
       </div>
     );
   }

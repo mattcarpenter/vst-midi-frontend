@@ -71,6 +71,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "cross-env": "^3.1.0",
+    "material-ui": "^0.19.4",
     "mumath": "^1.0.2",
     "piano-keyboard": "^2.1.4",
     "react": "^15.0.1",
@@ -79,8 +80,10 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "sharp11": "git+https://git@github.com/mattcarpenter/sharp11.git",
     "sliced": "^1.0.1",
     "tonal": "^1.1.0",
+    "tonal-detector": "^1.1.0",
     "webpack": "^2.1.0-beta.6"
   }
 }

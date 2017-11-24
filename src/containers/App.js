@@ -18,8 +18,14 @@ import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, notes, keyboard} = this.props;
-    return <Main actions={actions} notes={notes} keyboard={keyboard}/>;
+    const {actions, notes, keyboard, scale} = this.props;
+    return (
+      <Main
+        actions={actions}
+        notes={notes}
+        keyboard={keyboard}
+        scale={scale}/>
+    );
   }
 }
 /* Populated by react-webpack-redux:reducer

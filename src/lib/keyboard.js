@@ -394,7 +394,7 @@ class Keyboard extends Duplex {
 	/** Parse note number from any arg */
 	parseNote (note) {
 		if (isString(note)) {
-			return Note.midi(note);
+			return key.getNumber(note);
 		}
 
 		else if (isNumber(note)) {
