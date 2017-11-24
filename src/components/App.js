@@ -10,6 +10,8 @@ import s11 from 'sharp11';
 import MockHostContainer from '../containers/MockHostContainer';
 import KeyboardContainer from '../containers/KeyboardContainer';
 import FlatButton from 'material-ui/RaisedButton';
+import KeyContainer from '../containers/KeyContainer';
+import ScaleContainer from '../containers/ScaleContainer';
 
 class AppComponent extends React.Component {
 
@@ -27,6 +29,13 @@ class AppComponent extends React.Component {
         }
     });
 
+    let currentChord = s11.chord.identifyArray(notes);
+    let currentChordMehegan;
+    try {
+      currentChordMehegan = JSON.stringify(s11.mehegan.fromChord(this.props.musicKey.replace('m',''), currentChord));
+    } catch (ex) {}
+
+    console.log(currentChordMehegan);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div className="index">
@@ -34,8 +43,11 @@ class AppComponent extends React.Component {
             Notes: {JSON.stringify(notes, null, '\t')}
           </div>
           <div>
-              Chord: {s11.chord.identify.apply(s11.chord.identify, notes)}
+              Chord: {currentChord}<br/>
+              Mehegan: {currentChordMehegan}
           </div>
+          <KeyContainer />
+          <ScaleContainer />
           <KeyboardContainer />
           <MockHostContainer />
           <FlatButton label="Reload Page" onClick={this.reloadPage}/>

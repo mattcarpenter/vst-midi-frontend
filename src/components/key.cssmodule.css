@@ -1,0 +1,16 @@
+.key-component {
+  border: 1px solid #555;
+  background-color: #404040;
+  padding: 6px;
+  margin: 5px 0px 5px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.key-component > div {
+	margin-left: 10px;
+}
+
+.key-component > div:first-child {
+	margin-left: 0px;
+}

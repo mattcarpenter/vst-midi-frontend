@@ -9,11 +9,15 @@
  */
 /* Populated by react-webpack-redux:reducer */
 import { combineReducers } from 'redux';
+import scale from '../reducers/scale.js';
+import key from '../reducers/key.js';
 import keyboard from '../reducers/keyboard.js';
 import notes from '../reducers/notes.js';
 const reducers = {
   notes,
-  keyboard
+  keyboard,
+  key,
+  scale
 };
 const combined = combineReducers(reducers);
 module.exports = combined;

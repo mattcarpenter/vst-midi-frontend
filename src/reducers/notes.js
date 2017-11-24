@@ -3,9 +3,11 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_NOTE } from '../actions/const';
+import { ADD_NOTE, PREVIEW_CHORD_START, PREVIEW_CHORD_STOP } from '../actions/const';
+import { Chord, Note } from 'tonal';
 
 const initialState = { in: {}, out: {} };
+
 
 function reducer(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
@@ -18,6 +20,19 @@ function reducer(state = initialState, action) {
       nextState.out[action.note.noteNumber] = action.note;   
       return nextState;
     }
+
+    case PREVIEW_CHORD_START: {
+      // Determine notes
+      let notes = Chord.notes(action.chordName);
+      nextState.out = Object.assign(nextState.out, notesToMap(notes, 9, 127));
+      return nextState;
+    }
+
+    case PREVIEW_CHORD_STOP: {
+      let notes = Chord.notes(action.chordName);
+      nextState.out = Object.assign(nextState.out, notesToMap(notes, 8, 127));
+      return nextState;
+    }
     
     default: {
       /* Return original state if no actions were consumed. */
@@ -27,3 +42,17 @@ function reducer(state = initialState, action) {
 }
 
 module.exports = reducer;
+
+function notesToMap(notes, status, velocity) {
+  return notes.reduce((acc, curr) => {
+    // Todo: pass in an octave
+    let midiCode = Note.midi(curr + '4');
+    acc[midiCode] = {
+      noteNumber: midiCode,
+      noteName: curr + '4',
+      status: status,
+      velocity: velocity
+    };
+    return acc;
+  }, {});
+}

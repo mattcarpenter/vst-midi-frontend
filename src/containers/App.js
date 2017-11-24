@@ -12,18 +12,25 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   addNote,
-  setKeyboardMode
+  setKeyboardMode,
+  setKey,
+  scaleDetectionStart,
+  scaleDetectionEnd,
+  previewChordStart,
+  previewChordStop
 } from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, notes, keyboard, scale} = this.props;
+    const {actions, notes, keyboard, scale, musicKey} = this.props;
     return (
       <Main
         actions={actions}
         notes={notes}
         keyboard={keyboard}
+        scale={scale}
+        musicKey={musicKey}
         scale={scale}/>
     );
   }
@@ -36,17 +43,25 @@ class App extends Component {
 App.propTypes = {
   actions: PropTypes.shape({
     addNote: PropTypes.func.isRequired,
-    setKeyboardMode: PropTypes.func.isRequired
+    setKeyboardMode: PropTypes.func.isRequired,
+    setKey: PropTypes.func.isRequired,
+    scaleDetectionStart: PropTypes.func.isRequired,
+    scaleDetectionEnd: PropTypes.func.isRequired,
+    previewChordStart: PropTypes.func.isRequired,
+    previewChordStop: PropTypes.func.isRequired
   }),
   notes: PropTypes.shape({}),
-  keyboard: PropTypes.shape({})
+  keyboard: PropTypes.shape({}),
+  scale: PropTypes.shape({})
 };
 function mapStateToProps(state) {
   // eslint-disable-line no-unused-vars
   /* Populated by react-webpack-redux:reducer */
   const props = {
     notes: state.notes,
-    keyboard: state.keyboard
+    keyboard: state.keyboard,
+    musicKey: state.key.key,
+    scale: state.scale
   };
   return props;
 }
@@ -54,7 +69,12 @@ function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
     addNote,
-    setKeyboardMode
+    setKeyboardMode,
+    setKey,
+    scaleDetectionStart,
+    scaleDetectionEnd,
+    previewChordStart,
+    previewChordStop
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
