@@ -24,13 +24,17 @@ function reducer(state = initialState, action) {
     case PREVIEW_CHORD_START: {
       // Determine notes
       let notes = Chord.notes(action.chordName);
-      nextState.out = Object.assign(nextState.out, notesToMap(notes, 9, 127));
+      let updatedNotes = notesToMap(notes, 9, 127);
+      window.returnNotes(updatedNotes);
+      nextState.out = Object.assign(nextState.out, updatedNotes);
       return nextState;
     }
 
     case PREVIEW_CHORD_STOP: {
       let notes = Chord.notes(action.chordName);
-      nextState.out = Object.assign(nextState.out, notesToMap(notes, 8, 127));
+      let updatedNotes = notesToMap(notes, 8, 127);
+      window.returnNotes(updatedNotes);
+      nextState.out = Object.assign(nextState.out, updatedNotes);
       return nextState;
     }
     

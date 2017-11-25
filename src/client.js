@@ -18,6 +18,22 @@ window.sendNote = function (noteNumber, status, velocity) {
   }));
 };
 
+window.returnNotes = function (notes) {
+  Object.keys(notes).forEach((noteNumber) => {
+    let note = notes[noteNumber];
+    window.returnNote(note.noteNumber, note.status, note.velocity);
+  });
+}
+
+window.returnNote = function (noteNumber, status, velocity) {
+  try {
+    window.external.invoke_(noteNumber + ',' + status + ',' + velocity);
+  } catch (e) {
+    alert(e);
+    console.log('window.external.invoke_('+noteNumber + ',' + status + ',' + velocity +')');
+  }
+}
+
 ReactDOM.render(
   <AppContainer>
     <Provider store={store}>
