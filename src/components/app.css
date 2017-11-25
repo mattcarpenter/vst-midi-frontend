@@ -7,6 +7,18 @@ body {
   background: rgb(48, 48, 48);
 }
 
+.btn-record.recording {
+  color: rgb(245,0,87);
+}
+
+.btn-play.playing {
+  color: rgb(62,244,0);
+}
+
+.btn-edit.editing {
+  color: rgb(244,226,0);
+}
+
 .index {
   margin: 10px;
   padding: 10px;
@@ -105,7 +117,7 @@ body {
   right: -50%;
 }
 .piano-keyboard-key-active {
-  background: rgb(181, 226, 255);
+  background: rgb(245,0,87);
   box-shadow: none;
 }
 

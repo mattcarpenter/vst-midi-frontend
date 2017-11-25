@@ -23,7 +23,7 @@ import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, notes, keyboard, scale, musicKey} = this.props;
+    const {actions, notes, keyboard, scale, musicKey, chords, chordSlots} = this.props;
     return (
       <Main
         actions={actions}
@@ -31,7 +31,9 @@ class App extends Component {
         keyboard={keyboard}
         scale={scale}
         musicKey={musicKey}
-        scale={scale}/>
+        scale={scale}
+        chords={chords}
+        chordSlots={chordSlots} />
     );
   }
 }
@@ -52,7 +54,8 @@ App.propTypes = {
   }),
   notes: PropTypes.shape({}),
   keyboard: PropTypes.shape({}),
-  scale: PropTypes.shape({})
+  scale: PropTypes.shape({}),
+  chords: PropTypes.shape({})
 };
 function mapStateToProps(state) {
   // eslint-disable-line no-unused-vars
@@ -61,7 +64,9 @@ function mapStateToProps(state) {
     notes: state.notes,
     keyboard: state.keyboard,
     musicKey: state.key.key,
-    scale: state.scale
+    scale: state.scale,
+    chords: state.chords,
+    chordSlots: state.chords.slots
   };
   return props;
 }

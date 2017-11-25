@@ -5,6 +5,7 @@
  */
 import { ADD_NOTE, PREVIEW_CHORD_START, PREVIEW_CHORD_STOP } from '../actions/const';
 import { Chord, Note } from 'tonal';
+import s11 from 'sharp11';
 
 const initialState = { in: {}, out: {} };
 
@@ -48,12 +49,21 @@ function reducer(state = initialState, action) {
 module.exports = reducer;
 
 function notesToMap(notes, status, velocity) {
-  return notes.reduce((acc, curr) => {
+  let s11Chord = s11.chord.create(s11.chord.identifyArray(notes), 4);
+  let notes2 = s11Chord.chord;
+  notes2.pop();
+  return notes2.reduce((acc, curr) => {
+
+    // E# is the same as F. the piano-keyboard module blows up on E# so
+    // let's just coerce it to F.
+    if (curr.name === 'E#') {
+      curr.name = 'F';
+    }
     // Todo: pass in an octave
-    let midiCode = Note.midi(curr + '4');
+    let midiCode = Note.midi(curr.name + curr.octave);
     acc[midiCode] = {
       noteNumber: midiCode,
-      noteName: curr + '4',
+      noteName: curr.name + curr.octave,
       status: status,
       velocity: velocity
     };

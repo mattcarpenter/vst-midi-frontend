@@ -29,7 +29,6 @@ window.returnNote = function (noteNumber, status, velocity) {
   try {
     window.external.invoke_(noteNumber + ',' + status + ',' + velocity);
   } catch (e) {
-    alert(e);
     console.log('window.external.invoke_('+noteNumber + ',' + status + ',' + velocity +')');
   }
 }

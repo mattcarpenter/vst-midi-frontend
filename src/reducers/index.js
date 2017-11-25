@@ -9,6 +9,7 @@
  */
 /* Populated by react-webpack-redux:reducer */
 import { combineReducers } from 'redux';
+import chords from '../reducers/chords.js';
 import scale from '../reducers/scale.js';
 import key from '../reducers/key.js';
 import keyboard from '../reducers/keyboard.js';
@@ -17,7 +18,8 @@ const reducers = {
   notes,
   keyboard,
   key,
-  scale
+  scale,
+  chords
 };
 const combined = combineReducers(reducers);
 module.exports = combined;

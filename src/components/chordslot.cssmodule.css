@@ -1,0 +1,32 @@
+.chordslot-component {
+  margin: 5px;
+  width: 80px;
+  height: 80px;
+  border: solid 1px #333;
+  padding: 5px;
+  background-color: #444;
+  position:relative;
+  box-shadow: 0px 0px 7px #333;
+}
+
+.chordslot-component footer {
+  position: absolute;
+  bottom: 0px;
+  height: 20px;
+  left: 0px;
+  right: 0px;
+  background-color: #222;
+}
+
+.chordslot-component footer div {
+  height: 16px;
+  width: 16px;
+  display: block;
+  float: left;
+  padding: 2px;
+  color: #777;
+}
+
+.chordslot-component footer div:hover {
+  color: #bbb;
+}

@@ -1,0 +1,8 @@
+.chordslotbank-component {
+  border: 1px solid #555;
+  background-color: #404040;
+  margin: 5px 0px 5px 0px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

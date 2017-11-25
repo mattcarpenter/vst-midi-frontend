@@ -12,6 +12,7 @@ import KeyboardContainer from '../containers/KeyboardContainer';
 import FlatButton from 'material-ui/RaisedButton';
 import KeyContainer from '../containers/KeyContainer';
 import ScaleContainer from '../containers/ScaleContainer';
+import ChordSlotBank from './ChordSlotBank';
 
 class AppComponent extends React.Component {
 
@@ -35,7 +36,6 @@ class AppComponent extends React.Component {
       currentChordMehegan = JSON.stringify(s11.mehegan.fromChord(this.props.musicKey.replace('m',''), currentChord));
     } catch (ex) {}
 
-    console.log(currentChordMehegan);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div className="index">
@@ -50,6 +50,7 @@ class AppComponent extends React.Component {
           <ScaleContainer />
           <KeyboardContainer />
           <MockHostContainer />
+          <ChordSlotBank slots={this.props.chordSlots} />
           <FlatButton label="Reload Page" onClick={this.reloadPage}/>
         </div>
       </MuiThemeProvider>
