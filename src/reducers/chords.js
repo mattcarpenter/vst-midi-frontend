@@ -31,8 +31,9 @@ function reducer(state = initialState, action) {
 
           nextSlot.notes = Object.assign({}, slot.notes);
           nextSlot.notes[action.note.noteNumber] = action.note;
+          return nextSlot;
         }
-        return nextSlot;
+        return slot;
       });
       return nextState;
     }
