@@ -25,6 +25,7 @@
   float: left;
   padding: 2px;
   color: #777;
+  cursor: pointer;
 }
 
 .chordslot-component footer div:hover {

@@ -4,13 +4,13 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {} from '../actions/';
+import { chordSlotPlaying, chordSlotRecording, chordSlotEditing } from '../actions/';
 import ChordSlot from '../components/ChordSlot';
 
 class ChordSlotContainer extends Component {
   render() {
-    const { actions } = this.props;
-    return <ChordSlot actions={actions} />;
+    const { actions, slot } = this.props;
+    return <ChordSlot actions={actions} slot={slot} />;
   }
 }
 
@@ -24,7 +24,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = {};
+  const actions = { chordSlotPlaying, chordSlotEditing, chordSlotRecording };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }

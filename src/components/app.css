@@ -8,15 +8,15 @@ body {
 }
 
 .btn-record.recording {
-  color: rgb(245,0,87);
+  color: rgb(245,0,87) !important;
 }
 
 .btn-play.playing {
-  color: rgb(62,244,0);
+  color: rgb(62,244,0) !important;
 }
 
 .btn-edit.editing {
-  color: rgb(244,226,0);
+  color: rgb(244,226,0) !important;
 }
 
 .index {

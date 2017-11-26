@@ -17,7 +17,10 @@ import {
   scaleDetectionStart,
   scaleDetectionEnd,
   previewChordStart,
-  previewChordStop
+  previewChordStop,
+  chordSlotRecording,
+  chordSlotPlaying,
+  chordSlotEditing
 } from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
@@ -33,7 +36,7 @@ class App extends Component {
         musicKey={musicKey}
         scale={scale}
         chords={chords}
-        chordSlots={chordSlots} />
+        chordSlots={chordSlots}/>
     );
   }
 }
@@ -50,7 +53,10 @@ App.propTypes = {
     scaleDetectionStart: PropTypes.func.isRequired,
     scaleDetectionEnd: PropTypes.func.isRequired,
     previewChordStart: PropTypes.func.isRequired,
-    previewChordStop: PropTypes.func.isRequired
+    previewChordStop: PropTypes.func.isRequired,
+    chordSlotRecording: PropTypes.func.isRequired,
+    chordSlotPlaying: PropTypes.func.isRequired,
+    chordSlotEditing: PropTypes.func.isRequired
   }),
   notes: PropTypes.shape({}),
   keyboard: PropTypes.shape({}),
@@ -79,7 +85,10 @@ function mapDispatchToProps(dispatch) {
     scaleDetectionStart,
     scaleDetectionEnd,
     previewChordStart,
-    previewChordStop
+    previewChordStop,
+    chordSlotRecording,
+    chordSlotPlaying,
+    chordSlotEditing
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

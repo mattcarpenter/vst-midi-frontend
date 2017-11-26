@@ -6,8 +6,8 @@ import ChordSlotContainer from '../containers/ChordSlotContainer';
 class ChordSlotBank extends React.Component {
 
   render() {
-    let slots = this.props.slots.map((slot) => {
-      return (<ChordSlotContainer />);
+    let slots = this.props.slots.map((slot, index) => {
+      return (<ChordSlotContainer slot={slot} key={index} />);
     });
 
     return (

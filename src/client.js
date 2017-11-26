@@ -9,12 +9,13 @@ import { Note } from 'tonal';
 
 const store = configureStore();
 
-window.sendNote = function (noteNumber, status, velocity) {
+window.sendNote = function (channel, noteNumber, status, velocity) {
   store.dispatch(addNote({
     noteNumber: noteNumber,
     noteName: Note.fromMidi(noteNumber),
     status: status,
-    velocity: velocity
+    velocity: velocity,
+    channel: channel
   }));
 };
 
