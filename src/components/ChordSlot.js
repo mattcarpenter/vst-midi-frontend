@@ -1,6 +1,7 @@
 import React from 'react';
 import cssmodules from 'react-css-modules';
 import styles from './chordslot.cssmodule.css';
+import s11 from 'sharp11';
 
 class ChordSlot extends React.Component {
 
@@ -19,9 +20,16 @@ class ChordSlot extends React.Component {
   render() {
     let slot = this.props.slot;
 
+    // Determine chord name
+    let notes = Object.keys(slot.notes || {})
+      .filter((note) => slot.notes[note].status === 9)
+      .map((note) => slot.notes[note].noteName);
+
+    let chordName = s11.chord.identifyArray(notes);
+
     return (
       <div className="chordslot-component" styleName="chordslot-component">
-        
+        {chordName}
         <footer>
           <div className={'btn-record ' + (slot.recording ? 'recording' : '')}>
             <i
