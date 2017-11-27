@@ -43,7 +43,7 @@ function reducer(state = initialState, action) {
     }
 
     case CHORD_SLOT_PLAYING: {
-      let objs = [nextState.out];
+      let objs = [nextState.out || {}];
       Object.keys(action.slot.notes || {}).forEach((noteNumber) => {
         let note = Object.assign({}, action.slot.notes[noteNumber]);
         note.status = action.playing ? 9 : 8;
@@ -52,7 +52,7 @@ function reducer(state = initialState, action) {
         objs.push(newNote);
       });
 
-      let notesToReturn = Object.keys(action.slot.notes)
+      let notesToReturn = Object.keys(action.slot.notes || {})
         .map((noteNumber) => {
           let note = Object.assign({},action.slot.notes[noteNumber]);
           note.status = action.playing ? 9 : 8;
@@ -64,7 +64,10 @@ function reducer(state = initialState, action) {
         }, {});
 
       window.returnNotes(notesToReturn);
-      nextState.out = Object.assign.apply(this, objs);
+      nextState.out = objs.reduce((acc, curr) => {
+        return Object.assign(acc, curr);
+      }, {});
+
       return nextState;
     }
     

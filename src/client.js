@@ -2,21 +2,40 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { addNote } from './actions';
+import { addNote, chordSlotPlaying } from './actions';
 import App from './containers/App';
 import configureStore from './stores';
 import { Note } from 'tonal';
 
 const store = configureStore();
 
+// https://i.stack.imgur.com/8a76z.jpg
+const LAUNCHPAD_MIDI_MAP = [
+  64, 65, 66, 67, 96, 97, 98, 99,
+  60, 61, 62, 63, 92, 93, 94, 95,
+  56, 56, 58, 58, 88, 89, 90, 91
+];
+
+
 window.sendNote = function (channel, noteNumber, status, velocity) {
-  store.dispatch(addNote({
-    noteNumber: noteNumber,
-    noteName: Note.fromMidi(noteNumber),
-    status: status,
-    velocity: velocity,
-    channel: channel
-  }));
+  if (channel === 0) {
+    store.dispatch(addNote({
+      noteNumber: noteNumber,
+      noteName: Note.fromMidi(noteNumber),
+      status: status,
+      velocity: velocity,
+      channel: channel
+    }));
+  } else {
+    let slotIndex = LAUNCHPAD_MIDI_MAP.indexOf(noteNumber);
+    let state = store.getState();
+    let slot = state.chords.slots[slotIndex];
+    if (!slot) {
+      return;
+    }
+
+    store.dispatch(chordSlotPlaying(slot, status === 9));
+  }
 };
 
 window.returnNotes = function (notes) {
