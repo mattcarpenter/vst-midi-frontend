@@ -34,6 +34,19 @@ window.returnNote = function (noteNumber, status, velocity) {
   }
 }
 
+/*let lastState = store.getState();
+store.subscribe(function (state) {
+  let newState = store.getState();
+  Object.keys(newState.notes.out).forEach((noteNumber) => {
+    if ((lastState.notes.out[noteNumber] || {}).status !== 9 && newState.notes.out[noteNumber].status === 9) {
+      console.log('note on');
+    } else if ((lastState.notes.out[noteNumber] || {}).status === 9 && newState.notes.out[noteNumber].status === 8) {
+      console.log('note off');
+    }
+  });
+  lastState = newState;
+});*/
+
 ReactDOM.render(
   <AppContainer>
     <Provider store={store}>

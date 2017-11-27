@@ -3,7 +3,7 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { ADD_NOTE, PREVIEW_CHORD_START, PREVIEW_CHORD_STOP } from '../actions/const';
+import { ADD_NOTE, PREVIEW_CHORD_START, PREVIEW_CHORD_STOP, CHORD_SLOT_PLAYING } from '../actions/const';
 import { Chord, Note } from 'tonal';
 import s11 from 'sharp11';
 
@@ -17,6 +17,9 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     
     case ADD_NOTE: {
+      nextState.in = Object.assign({}, nextState.in);
+      nextState.out = Object.assign({}, nextState.out);
+
       nextState.in[action.note.noteNumber] = action.note;
       nextState.out[action.note.noteNumber] = action.note;   
       return nextState;
@@ -36,6 +39,32 @@ function reducer(state = initialState, action) {
       let updatedNotes = notesToMap(notes, 8, 127);
       window.returnNotes(updatedNotes);
       nextState.out = Object.assign(nextState.out, updatedNotes);
+      return nextState;
+    }
+
+    case CHORD_SLOT_PLAYING: {
+      let objs = [nextState.out];
+      Object.keys(action.slot.notes || {}).forEach((noteNumber) => {
+        let note = Object.assign({}, action.slot.notes[noteNumber]);
+        note.status = action.playing ? 9 : 8;
+        let newNote = {};
+        newNote[noteNumber] = note;
+        objs.push(newNote);
+      });
+
+      let notesToReturn = Object.keys(action.slot.notes)
+        .map((noteNumber) => {
+          let note = Object.assign({},action.slot.notes[noteNumber]);
+          note.status = action.playing ? 9 : 8;
+          return note;
+        })
+        .reduce((acc, curr) => {
+          acc[curr.noteNumber] = curr;
+          return acc;
+        }, {});
+
+      window.returnNotes(notesToReturn);
+      nextState.out = Object.assign.apply(this, objs);
       return nextState;
     }
     
