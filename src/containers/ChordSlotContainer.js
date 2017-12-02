@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { chordSlotPlaying, chordSlotRecording, chordSlotEditing } from '../actions/';
+import { chordSlotPlaying, chordSlotRecording, chordSlotEditing, setKeyboardMode } from '../actions/';
 import ChordSlot from '../components/ChordSlot';
 
 class ChordSlotContainer extends Component {
@@ -24,7 +24,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = { chordSlotPlaying, chordSlotEditing, chordSlotRecording };
+  const actions = { chordSlotPlaying, chordSlotEditing, chordSlotRecording, setKeyboardMode };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }

@@ -31,6 +31,13 @@ function reducer(state = initialState, action) {
 
           nextSlot.notes = Object.assign({}, slot.notes);
           nextSlot.notes[action.note.noteNumber] = action.note;
+
+          // Identify chord
+          let notesList = Object.keys(nextSlot.notes || {})
+            .filter((note) => nextSlot.notes[note].status === 9)
+            .map((note) => nextSlot.notes[note].noteName);
+          nextSlot.chordName = s11.chord.identifyArray(notesList);
+
           return nextSlot;
         }
         return slot;
@@ -53,7 +60,9 @@ function reducer(state = initialState, action) {
       nextState.slots = nextState.slots.map((slot) => {
         let nextSlot = Object.assign({}, slot);
         if (slot === action.slot) {
-          nextSlot.dirty = action.editing;
+          nextSlot.editing = action.editing;
+        } else {
+          nextSlot.editing = false;
         }
         return nextSlot;
       });

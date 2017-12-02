@@ -9,7 +9,7 @@ const initialState = { mode: KEYBOARD_MODE_MONITOR_OUT };
 
 function reducer(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
-  // const nextState = Object.assign({}, state);
+  const nextState = Object.assign({}, state);
 
   switch (action.type) {
     case SET_KEYBOARD_MODE: {

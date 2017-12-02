@@ -3,6 +3,8 @@ import cssmodules from 'react-css-modules';
 import styles from './chordslot.cssmodule.css';
 import s11 from 'sharp11';
 
+import { KEYBOARD_MODE_CHORD_EDIT, KEYBOARD_MODE_MONITOR_OUT } from '../actions/const';
+
 class ChordSlot extends React.Component {
 
   setPlaying(playing) {
@@ -14,22 +16,16 @@ class ChordSlot extends React.Component {
   }
 
   toggleEditing() {
-    this.props.actions.chordSlotEditing(this.props.slot, !this.props.slot.editing);
+    let editing = !this.props.slot.editing;
+    this.props.actions.chordSlotEditing(this.props.slot, editing);
+    this.props.actions.setKeyboardMode(editing ? KEYBOARD_MODE_CHORD_EDIT : KEYBOARD_MODE_MONITOR_OUT);
   }
 
   render() {
     let slot = this.props.slot;
-
-    // Determine chord name
-    let notes = Object.keys(slot.notes || {})
-      .filter((note) => slot.notes[note].status === 9)
-      .map((note) => slot.notes[note].noteName);
-
-    let chordName = s11.chord.identifyArray(notes);
-
     return (
       <div className="chordslot-component" styleName="chordslot-component">
-        {chordName}
+        {slot.chordName}
         <footer>
           <div className={'btn-record ' + (slot.recording ? 'recording' : '')}>
             <i
