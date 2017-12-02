@@ -20,7 +20,8 @@ import {
   previewChordStop,
   chordSlotRecording,
   chordSlotPlaying,
-  chordSlotEditing
+  chordSlotEditing,
+  chordSlotSendNote
 } from '../actions/';
 import Main from '../components/App';
 /* Populated by react-webpack-redux:reducer */
@@ -56,7 +57,8 @@ App.propTypes = {
     previewChordStop: PropTypes.func.isRequired,
     chordSlotRecording: PropTypes.func.isRequired,
     chordSlotPlaying: PropTypes.func.isRequired,
-    chordSlotEditing: PropTypes.func.isRequired
+    chordSlotEditing: PropTypes.func.isRequired,
+    chordSlotSendNote: PropTypes.func.isRequired
   }),
   notes: PropTypes.shape({}),
   keyboard: PropTypes.shape({}),
@@ -88,7 +90,8 @@ function mapDispatchToProps(dispatch) {
     previewChordStop,
     chordSlotRecording,
     chordSlotPlaying,
-    chordSlotEditing
+    chordSlotEditing,
+    chordSlotSendNote
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

@@ -6,6 +6,7 @@ Allows to import actions like so:
 import {action1, action2} from '../actions/'
 */
 /* Populated by react-webpack-redux:action */
+import chordSlotSendNote from '../actions/chordSlotSendNote.js';
 import chordSlotEditing from '../actions/chordSlotEditing.js';
 import chordSlotPlaying from '../actions/chordSlotPlaying.js';
 import chordSlotRecording from '../actions/chordSlotRecording.js';
@@ -26,6 +27,7 @@ const actions = {
   previewChordStop,
   chordSlotRecording,
   chordSlotPlaying,
-  chordSlotEditing
+  chordSlotEditing,
+  chordSlotSendNote
 };
 module.exports = actions;

@@ -141,7 +141,6 @@ class Keyboard extends Duplex {
 		return self;
 	}
 
-
 	/** Bind events */
 	enable () {
 		var self = this;
@@ -189,8 +188,25 @@ class Keyboard extends Duplex {
 
 		on(self.element, 'mousedown.' + self.id + ' touchstart.' + self.id, function (e) {
 			e.preventDefault();
+			/*on(doc, 'mouseup.' + self.id + ' mouseleave.' + self.id, function (e) {
+				e.preventDefault();
+				off(doc, 'mouseup.' + self.id + ' mouseleave.' + self.id);
+				emit(self, 'noteEvent', {
+					noteName: e.target.title,
+					noteNumber: e.target.dataset.key,
+					status: 8
+				});
+			});*/
 
-			self.isBlocked = false;
+			emit(self, 'noteEvent', {
+				status: 9,
+				noteName: e.target.title,
+				noteNumber: e.target.dataset.key
+			});
+
+			return;
+
+			/*self.isBlocked = false;
 
 			isMouseDown = true;
 
@@ -222,7 +238,7 @@ class Keyboard extends Duplex {
 				e.preventDefault();
 				// updateNotes(e.changedTouches, e);
 				updateNotes(e.touches, e);
-			});
+			});*/
 		});
 
 		//up keys on blur
@@ -413,7 +429,7 @@ class Keyboard extends Duplex {
 
 
 	/** Set active note */
-	noteOn (note, value) {
+	noteOn (note, value, emitEvent = true) {
 		var self = this;
 
 		if (self.isBlocked) return self;
@@ -469,11 +485,13 @@ class Keyboard extends Duplex {
 		self.activeNotes.add(note);
 
 		//send on note
-		emit(self, 'noteOn', {
-			target: keyEl,
-			which: note,
-			value: value
-		});
+		if (emitEvent) {
+			emit(self, 'noteOn', {
+				target: keyEl,
+				which: note,
+				value: value
+			});
+		}
 
 		//send to stream
 		self.push([144, note, value]);
@@ -491,7 +509,7 @@ class Keyboard extends Duplex {
 
 
 	/** Disable note or all notes */
-	noteOff (note) {
+	noteOff (note, emitEvent = true) {
 		var self = this, keyEl;
 
 		if (self.isBlocked) return self;
@@ -535,11 +553,13 @@ class Keyboard extends Duplex {
 		self.activeNotes.delete(note);
 
 		//send off note
-		emit(self, 'noteOff', {
-			target: keyEl,
-			which: note,
-			value: 0
-		});
+		if (emitEvent) {
+			emit(self, 'noteOff', {
+				target: keyEl,
+				which: note,
+				value: 0
+			});
+		}
 
 		keyEl.classList.remove('piano-keyboard-key-active');
 		keyEl.removeAttribute('data-key-active');

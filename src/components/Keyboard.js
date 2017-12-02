@@ -18,10 +18,32 @@ class Keyboard extends React.Component {
       ally: true
     });
     pianoKeyboard.update();
+    
+    pianoKeyboard.on('noteEvent', (params) => {
+      if (this.props.mode === KEYBOARD_MODE_CHORD_EDIT) {
+        // Toggle note
+
+        // Get MIDI code
+        let noteNumber = Note.midi(params.noteName.replace('E#', 'F'));
+
+        let noteToEdit = this.props.chordSlot.notes[noteNumber];
+        let newStatus = (noteToEdit || {}).status === 9 ? 8 : 9;
+        this.props.actions.chordSlotSendNote({
+          noteName: params.noteName,
+          status: newStatus,
+          chordSlot: this.props.chordSlot
+        });
+      }
+    });
+    
     this.pianoKeyboard = pianoKeyboard;
   }
 
   render() {
+    // Initially set all notes off
+    if (this.pianoKeyboard) {
+      this.pianoKeyboard.noteOff();
+    }
     
     // When KEYBOARD_MODE_MONITOR_OUT, the keyboard will show each "on" note from the output
     if (this.props.mode === KEYBOARD_MODE_MONITOR_OUT) {
@@ -37,8 +59,6 @@ class Keyboard extends React.Component {
 
     // When KEYBOARD_MODE_CHORD_EDIT, the keyboard will show the chord slot currently being edited
     if (this.props.mode === KEYBOARD_MODE_CHORD_EDIT) {
-      // Initially set all notes off
-      this.setAllOff();
 
       // Update keyboard to match chord being edited
       Object.keys(this.props.chordSlot.notes || {}).forEach((noteNumber) => {
@@ -55,16 +75,6 @@ class Keyboard extends React.Component {
         <div id="keyboard"></div>
       </div>
     );
-  }
-
-  /**
-   * Sets all notes on the keyboard to OFF
-   */
-  setAllOff() {
-    const notes = this.props.notes.out;
-    Object.keys(notes).forEach((note) => {
-      this.pianoKeyboard.noteOff(this.flatToSharp(notes[note].noteName));
-    });
   }
 
   /**

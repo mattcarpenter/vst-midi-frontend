@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {} from '../actions/';
+import { chordSlotSendNote } from '../actions/';
 import { KEYBOARD_MODE_CHORD_EDIT } from '../actions/const';
 import Keyboard from '../components/Keyboard';
 
@@ -36,7 +36,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = {};
+  const actions = { chordSlotSendNote };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }

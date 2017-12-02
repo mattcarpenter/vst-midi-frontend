@@ -3,8 +3,9 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import { CHORD_SLOT_PLAYING, CHORD_SLOT_EDITING, CHORD_SLOT_RECORDING, ADD_NOTE } from '../actions/const';
+import { CHORD_SLOT_PLAYING, CHORD_SLOT_EDITING, CHORD_SLOT_RECORDING, ADD_NOTE, CHORD_SLOT_SEND_NOTE } from '../actions/const';
 import s11 from 'sharp11';
+import { Note } from 'tonal';
 
 const SLOT_COUNT = 12;
 
@@ -17,6 +18,26 @@ function reducer(state = initialState, action) {
   const nextState = Object.assign({}, state);
 
   switch (action.type) {
+
+    case CHORD_SLOT_SEND_NOTE: {
+      nextState.slots = nextState.slots.map((slot) => {
+        let nextSlot = Object.assign({}, slot);
+        if (slot.editing) {
+          let noteName = action.params.noteName.replace('E#', 'F');
+          let noteNumber = Note.midi(noteName);
+          nextSlot.notes[noteNumber] = {
+            noteNumber: noteNumber,
+            status: action.params.status,
+            velocity: action.params.velocity || 127,
+            channel: 0,
+            noteName: noteName
+          };
+          return nextSlot;
+        }
+        return slot;
+      });
+      return nextState;
+    }
 
     case ADD_NOTE: {
       // If any chord slots are recording, update the notes contained within
@@ -100,7 +121,8 @@ function initializeSlots() {
       recording: false,
       editing: false,
       playing: false,
-      dirty: false
+      dirty: false,
+      notes: {}
     });
   }
 
