@@ -25,13 +25,25 @@ function reducer(state = initialState, action) {
         if (slot.editing) {
           let noteName = action.params.noteName.replace('E#', 'F');
           let noteNumber = Note.midi(noteName);
-          nextSlot.notes[noteNumber] = {
-            noteNumber: noteNumber,
-            status: action.params.status,
-            velocity: action.params.velocity || 127,
-            channel: 0,
-            noteName: noteName
-          };
+
+          if (action.params.status === 9) {
+            nextSlot.notes[noteNumber] = {
+              noteNumber: noteNumber,
+              status: action.params.status,
+              velocity: action.params.velocity || 127,
+              channel: 0,
+              noteName: noteName
+            };
+          } else {
+            delete nextSlot.notes[noteNumber];
+          }
+
+          // Identify chord
+          let notesList = Object.keys(nextSlot.notes || {})
+            .filter((note) => nextSlot.notes[note].status === 9)
+            .map((note) => nextSlot.notes[note].noteName);
+          nextSlot.chordName = s11.chord.identifyArray(notesList);
+
           return nextSlot;
         }
         return slot;
